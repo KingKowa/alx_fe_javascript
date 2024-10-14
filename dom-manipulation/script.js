@@ -13,7 +13,7 @@ const showRandomQuote = () => {
 }
 
 
-const addQuote = () => {
+const creatAddQuoteForm = () => {
 
 }
 
