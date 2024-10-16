@@ -76,6 +76,25 @@ function loadQuotes() {
     localStorage.setItem('quotes', JSON.stringify(quotes)); 
   }
 
+  function exportQuotes() {
+    // Create a Blob object from the quotes array
+    const blob = new Blob([JSON.stringify(quotes, null, 2)], { type: 'application/json' });
+    
+    // Create a URL for the Blob
+    const url = URL.createObjectURL(blob);
+  
+    // Create a temporary link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'quotes.json';  // Name of the downloaded file
+    a.click();  // Programmatically click the link to start the download
+  
+    // Revoke the object URL after the download
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
+
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 
 
