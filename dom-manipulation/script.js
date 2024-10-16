@@ -122,6 +122,18 @@ function loadQuotes() {
     });
   }
 
+  function filterQuotes() {
+    const selectedCategory = document.getElementById('categoryFilter').value;
+  
+    // Filter the quotes based on the selected category
+    if (selectedCategory === 'all') {
+      displayQuotes(quotes); // Show all quotes if 'All Categories' is selected
+    } else {
+      const filteredQuotes = quotes.filter(quote => quote.category === selectedCategory);
+      displayQuotes(filteredQuotes); // Show only the filtered quotes
+    }
+  }
+
   document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
 
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
