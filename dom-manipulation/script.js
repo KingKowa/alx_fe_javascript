@@ -104,9 +104,29 @@ function loadQuotes() {
     fileReader.readAsText(event.target.files[0]);
   }
 
+  function populateCategories() {
+    const categoryDropdown = document.getElementById('filterCategory');
+  
+    // Extract unique categories from quotes
+    const categories = [...new Set(quotes.map(quote => quote.category))];
+  
+    // Clear existing options, keeping "All Categories" as the default
+    categoryDropdown.innerHTML = `<option value="all">All Categories</option>`;
+  
+    // Add new unique categories to the dropdown
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categoryDropdown.appendChild(option);
+    });
+  }
+
   document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
 
-document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+  document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+
+  document.getElementById('filterButton').addEventListener('click', filterQuotes);
 
 
 document.addEventListener('DOMContentLoaded', function() {
