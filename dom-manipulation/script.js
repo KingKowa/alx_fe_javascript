@@ -56,12 +56,31 @@ function createAddQuoteForm() {
     
         alert('Quote added successfully!');
       });
-}  
+}
+
+function loadQuotes() {
+    const storedQuotes = localStorage.getItem('quotes');
+    if (storedQuotes) {
+      quotes = JSON.parse(storedQuotes); 
+    } else {
+      
+      quotes = [
+        { text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae molestiae tenetur quos!", category: "Entertainment" },
+        { text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae molestiae tenetur quos!", category: "Sports" },
+        { text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae molestiae tenetur quos!", category: "Education" }
+      ];
+    }
+  }
+
+  function saveQuotes() {
+    localStorage.setItem('quotes', JSON.stringify(quotes)); 
+  }
 
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 
 
 document.addEventListener('DOMContentLoaded', function() {
     createAddQuoteForm();
+    loadQuotes();
     showRandomQuote();  // Show a random quote on page load
   });
