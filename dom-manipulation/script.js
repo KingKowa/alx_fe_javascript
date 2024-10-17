@@ -136,7 +136,7 @@ function loadQuotes() {
 
   const apiBaseUrl = "https://jsonplaceholder.typicode.com/posts";
 
-  async function fetchQuotes() {
+  async function fetchQuotesFromServer() {
     try {
       const response = await fetch(apiBaseUrl);
       const data = await response.json();
