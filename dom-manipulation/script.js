@@ -185,6 +185,26 @@ function loadQuotes() {
   }
 }
 
+function resolveQuoteConflicts(fetchedQuotes) {
+    // Check if the fetched quotes are different from the local quotes
+    let hasConflicts = false;
+  
+    fetchedQuotes.forEach(fetchedQuote => {
+      const isDuplicate = quotes.some(localQuote => localQuote.text === fetchedQuote.text);
+      if (!isDuplicate) {
+        // If there's a new quote from the server, add it to the local quotes array
+        quotes.push(fetchedQuote);
+        hasConflicts = true;
+      }
+    });
+  
+    if (hasConflicts) {
+      // If any conflicts were resolved (i.e., new quotes were found), update localStorage
+      saveQuotes();
+      alert("Quotes synced with server!");
+    }
+  }
+
 function startPeriodicFetching() {
     setInterval(fetchQuotes, 10000);  // Fetch new quotes every 10 seconds
   }
