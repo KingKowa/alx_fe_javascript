@@ -134,6 +134,58 @@ function loadQuotes() {
     }
   }
 
+  const apiBaseUrl = "https://jsonplaceholder.typicode.com/posts";
+
+  async function fetchQuotes() {
+    try {
+      const response = await fetch(apiBaseUrl);
+      const data = await response.json();
+  
+      // Map the fetched data to quote objects (simulating with title and body)
+      quotes = data.slice(0, 10).map(quote => ({
+        text: quote.title,  // Simulate quote text
+        category: "General"  // Assign a default category for now
+      }));
+  
+      displayQuotes(quotes);  // Display fetched quotes
+      populateCategories();   // Populate categories dropdown
+    } catch (error) {
+      console.error("Error fetching quotes:", error);
+    }
+  }
+
+  async function postQuote(newQuote) {
+    try {
+      const response = await fetch(apiBaseUrl, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newQuote)
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error posting quote');
+      }
+  
+      const postedQuote = await response.json();
+  
+      // Add the posted quote to the local quotes array
+      quotes.push({
+        text: postedQuote.title,
+        category: newQuote.category
+      });
+
+      displayQuotes(quotes);  // Update DOM
+    saveQuotes();           // Save to local storage (simulated)
+
+    console.log('Quote successfully posted:', postedQuote);
+  } catch (error) {
+    console.error("Error posting quote:", error);
+  }
+}
+
+
   document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
 
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
