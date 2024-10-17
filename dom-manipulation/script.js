@@ -154,7 +154,7 @@ function loadQuotes() {
     }
   }
 
-  async function postQuote(newQuote) {
+  async function syncQuotes(newQuote) {
     try {
       const response = await fetch(apiBaseUrl, {
         method: "POST",
