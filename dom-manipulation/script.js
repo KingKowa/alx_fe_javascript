@@ -185,6 +185,10 @@ function loadQuotes() {
   }
 }
 
+function startPeriodicFetching() {
+    setInterval(fetchQuotes, 10000);  // Fetch new quotes every 10 seconds
+  }
+
 
   document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
 
